@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>廉洁承诺签名</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "思源宋体", "微软雅黑", sans-serif;
+        }
+        body{
+            background: linear-gradient(140deg, #f0f8f3, #e4f1eb);
+            min-height: 100vh;
+            padding: 50px 20px;
+        }
+        .sign-card{
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 40px 25px;
+            box-shadow: 0 5px 28px rgba(52, 138, 94, 0.15);
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        h2{
+            color: #1e5c3b;
+            font-size: 26px;
+            letter-spacing: 2px;
+            margin-bottom: 35px;
+        }
+        .input-area{
+            width: 100%;
+            height: 56px;
+            border: 2px solid #b4d9c4;
+            border-radius: 10px;
+            padding: 0 16px;
+            font-size: 18px;
+            color: #222;
+            outline: none;
+            transition: 0.3s;
+        }
+        .input-area:focus{
+            border-color: #349464;
+            box-shadow: 0 0 8px rgba(52, 138, 94, 0.2);
+        }
+        .submit-btn{
+            width: 100%;
+            height: 52px;
+            margin-top: 24px;
+            background: linear-gradient(135deg,#349464,#277c52);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+        .submit-btn:active{
+            opacity: 0.9;
+        }
+        .tip{
+            margin-top: 20px;
+            font-size: 15px;
+            color: #2d8056;
+        }
+    </style>
+</head>
+<body>
+    <div class="sign-card">
+        <h2>廉洁承诺签名登记</h2>
+        <input class="input-area" id="nameInput" placeholder="请输入您的姓名">
+        <button class="submit-btn" onclick="submit()">提交同步大屏</button>
+        <p class="tip" id="tipText">签名提交后实时展示于公示大屏</p>
+    </div>
+
+    <script>
+        const api = "https://api.npoint.io/3e189a7d27e89923f9f9";
+        function submit(){
+            let name = document.getElementById("nameInput").value.trim();
+            if(!name){
+                alert("请填写姓名再提交");
+                return;
+            }
+            fetch(api,{
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify({name:name})
+            })
+            document.getElementById("tipText").innerText = `✅ 提交成功，大屏已同步：${name}`;
+        }
+    </script>
+</body>
+</html>
